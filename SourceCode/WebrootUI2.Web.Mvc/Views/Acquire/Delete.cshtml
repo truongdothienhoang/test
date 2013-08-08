@@ -1,0 +1,13 @@
+﻿@using Resources
+@model WebrootUI2.Web.Mvc.Controllers.ViewModels.AcquireSystemModel
+@{
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+    @Html.ActionLink(@Resources.CmResources.Back, "Index", "Acquire")
+    Html.EnableClientValidation();
+    using (Html.BeginForm("Delete", "Acquire", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    @Html.HiddenFor(m => m.Id)
+    <p>@Resources.CmResources.MessageDelete @Model.Name ?</p>
+    @Html.Button(@Resources.CmResources.Save, @Resources.CmResources.Delete, HtmlButtonType.Submit)
+    }
+}

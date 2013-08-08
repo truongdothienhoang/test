@@ -1,0 +1,33 @@
+﻿@using Resources
+
+@model WebrootUI2.Web.Mvc.Controllers.ViewModels.AcquireSystemModel
+@{
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+    @Html.ActionLink(@Resources.CmResources.Back, "Index", "Acquire")
+    Html.EnableClientValidation();
+    using (Html.BeginForm("Edit", "Acquire", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <table id="tableAcquire" class="table table-striped table-bordered dTableR dataTable">
+
+
+
+            <tr>
+                <td>@Html.LabelFor(m => m.Name)</td>
+                <td>@Html.TextBoxFor(m => m.Name)
+                    <br />
+                    @Html.ValidationMessageFor(m => m.Name)
+                </td>
+
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Enabled)</td>
+                <td>@Html.CheckBoxFor(m => m.Enabled)</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>@Html.Button(@Resources.CmResources.Save, @Resources.CmResources.Save, HtmlButtonType.Submit)</td>
+            </tr>
+        </table>
+    }
+}
