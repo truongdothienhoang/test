@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryval", "~/bundles/bootstrapjs")
+    @Styles.Render("~/Content/bootstrap", "~/Content/css")
+    @Styles.Render("~/Content/Gebo-Template")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/bundles/paging")
+    @Scripts.Render("~/Scripts/Lukepro.js")
+    @Scripts.Render("~/Scripts/jquery.validate.js")
+    @Scripts.Render("~/Scripts/jquery.colorbox-min.js")
+    @Styles.Render("~/Content/colorbox.css")
+
+</head>
+<body>
+    <div id="contentwrapper">
+
+        <div class="row-fluid">
+
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+</html>

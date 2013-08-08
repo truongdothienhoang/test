@@ -1,0 +1,33 @@
+﻿@using Resources
+@using WebrootUI2.Web.Mvc.Helper.PagingHelper
+@model WebrootUI2.Web.Mvc.Controllers.ViewModels.AcquireSystemModel
+@{
+    Layout = null;
+}
+
+<table id="tableAcquire" class="table table-striped table-bordered dTableR dataTable">
+    <thead>
+        <tr>
+            <th>@CmResources.Name</th>
+            <th>@CmResources.Enable</th>
+            <th>@CmResources.Action</th>
+        </tr>
+    </thead>
+
+    @foreach (var q in @Model.List)
+    {
+
+        <tr>
+            <td>@q.Name</td>
+            <td>@q.Enabled</td>
+            <td>@Html.ActionLink(@CmResources.Edit, "Edit", "Acquire", new { id = @q.Id }, new { @class = "ajaxButton" }) |@Html.ActionLink(@CmResources.Delete, "Edit", "Acquire", new { id = @q.Id }, new { @class = "ajaxButton" })  </td>
+        </tr> 
+    }
+
+</table>
+
+<script type="text/javascript">
+    $('.ajaxButton').colorbox({ transition: "elastic", width: "500" });
+
+
+</script>

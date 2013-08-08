@@ -1,0 +1,85 @@
+﻿@using Resources
+@using WebrootUI2.Web.Mvc.Helper.PagingHelper
+@model WebrootUI2.Web.Mvc.Controllers.ViewModels.AcquireSystemModel
+@Html.TextBoxFor(m => m.Query)
+<button id="btnSearch">Search</button>
+<br />
+@Html.ActionLink(@CmResources.Create, "Create", "Acquire", null)
+
+<div id="AjaxContent">
+    <table id="tableAcquire" class="table table-striped table-bordered dTableR dataTable">
+        <thead>
+            <tr>
+                <th>@CmResources.Name</th>
+                <th>@CmResources.Enable</th>
+                <th>@CmResources.Action</th>
+            </tr>
+        </thead>
+
+        @foreach (var q in @Model.List)
+        {
+
+            <tr>
+                <td>@q.Name</td>
+                <td>@q.Enabled</td>
+                <td>@Html.ActionLink(@CmResources.Edit, "Edit", "Acquire", new { id = @q.Id }, new { @class = "ajaxButton" }) |@Html.ActionLink(@CmResources.Delete, "Delete", "Acquire", new { id = @q.Id }, new { @class = "ajaxButton" })  </td>
+            </tr> 
+        }
+
+    </table>
+    <div id="pagingDiv"></div>
+</div>
+
+
+@section Sidebar
+{
+    @Helpers.SidebarPanel(
+        @Helpers.SidebarItem(Resource.AuditMenuItem, "Index", "System"),
+        @Helpers.SidebarItem(Resource.ConfigMenuItem, "", "Admin"),
+         @Helpers.SidebarItem(Resource.AcquireMenu, "Index", "Acquire")
+    )
+}
+
+
+<script type="text/ecmascript">
+    $(document).ready(function myfunction() {
+        $('#btnSearch').click(function () {
+            $.getJSON("/Acquire/Search", { query: $('#Query').val()}, function (data) {
+                if (data.status == "success")
+                    loadUsersTable(data.list, 1, data.recordsCount);
+            });
+        })
+
+
+        //Load paging in the initial load
+        $('#pagingDiv').empty();
+        $('#pagingDiv').append(pagination(8, 1, "@Model.TotalRecordsCount"));
+    });
+
+
+    //Load the Users list on search
+    function loadUsersTable(list, currentIndex, count) {
+        $('#tableAcquire').empty();
+        $('#tableAcquire').append("<thead><tr><th>@CmResources.Name</th><th>@CmResources.Enable</th><th>@CmResources.Action</th></tr></thead>");
+
+        $.each(list, function (index, value) {
+            $('#tableAcquire').append("<tr><td>" + value.Name + "</td><td>"
+                + value.Enabled + "</td><td>" + "<a class=\"ajaxButton cboxElement\" href=\"/Acquire/Edit?Id=" + value.Id + "\">@CmResources.Edit</a> | <a class=\"ajaxButton cboxElement\" href=\"/Acquire/Delete?Id=" + value.Id + "\">@CmResources.Delete</a>" + "</td>"
+                + "</tr>");
+        });
+
+        $('#pagingDiv').empty();
+        $('#pagingDiv').append(pagination(8, currentIndex, count));
+    }
+
+    //Method which triggers the paging index change
+    function indexChanged(_index) {
+        $.getJSON("/Acquire/PagingIndexChanged", { index: _index }, function (data) {
+            if (data.status == "success")
+                loadUsersTable(data.list, data.currentIndex, data.recordsCount);
+        });
+    }
+</script>
+<script type="text/javascript">
+    $('.ajaxButton').colorbox({ transition: "elastic", width: "500" });
+</script>

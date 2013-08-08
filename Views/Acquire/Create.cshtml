@@ -1,0 +1,39 @@
+﻿@using Resources
+@model WebrootUI2.Web.Mvc.Controllers.ViewModels.AcquireSystemModel
+@{
+     @Html.ActionLink(@Resources.CmResources.Back, "Index", "Acquire")
+    Html.EnableClientValidation();
+    using (Html.BeginForm("Create", "Acquire", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    @Html.HiddenFor(m => m.Id)
+    <table id="tableAcquire" class="table table-striped table-bordered dTableR dataTable">
+
+
+
+        <tr>
+            <td>@Html.LabelFor(m => m.Name)</td>
+            <td>@Html.TextBoxFor(m => m.Name)
+                <br />
+                @Html.ValidationMessageFor(m => m.Name)
+            </td>
+
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Enabled)</td>
+            <td>@Html.CheckBoxFor(m => m.Enabled)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>@Html.Button(@Resources.CmResources.Save, @Resources.CmResources.Save, HtmlButtonType.Submit) </td>
+        </tr>
+    </table>
+    }
+}
+@section Sidebar
+{
+    @Helpers.SidebarPanel(
+        @Helpers.SidebarItem(Resource.AuditMenuItem, "Index", "System"),
+        @Helpers.SidebarItem(Resource.ConfigMenuItem, "", "Admin"),
+         @Helpers.SidebarItem(Resource.AcquireMenu, "Index", "Acquire")
+    )
+}
