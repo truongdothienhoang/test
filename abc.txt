@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-Master 
-=======
-Version 1.1
->>>>>>> origin/1.1
+Update Master
